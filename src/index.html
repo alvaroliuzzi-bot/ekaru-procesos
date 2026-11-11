@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Glacé × e-Karú · Procesos ideales</title>
+<style>
+  @font-face{font-family:"Inter TT";src:url("fonts/Inter-Regular.ttf") format("truetype");font-weight:400;font-style:normal}
+  @font-face{font-family:"Inter TT";src:url("fonts/Inter-Medium.ttf") format("truetype");font-weight:500;font-style:normal}
+  @font-face{font-family:"Inter TT";src:url("fonts/Inter-SemiBold.ttf") format("truetype");font-weight:600;font-style:normal}
+  @font-face{font-family:"Inter TT";src:url("fonts/Inter-Bold.ttf") format("truetype");font-weight:700;font-style:normal}
+  html,body{margin:0;padding:0;background:#fff}
+  body{font-family:"Inter TT",Inter,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+  .pg{position:relative;overflow:hidden;background:#fff}
+  svg{display:block}
+  @page{margin:0}
+</style></head>
+<body>
+<div id="stage"></div>
+<script src="engine.js"></script>
+<script src="common.js"></script>
+<script src="catalog.js"></script>
+<script src="textpages.js"></script>
+<script src="p1a.js"></script>
+<script src="p1b.js"></script>
+<script src="p2a.js"></script>
+<script src="p2b.js"></script>
+<script src="p2c.js"></script>
+<script src="p3a.js"></script>
+<script src="p3b.js"></script>
+<script src="p3c.js"></script>
+<script src="p3d.js"></script>
+<script>
+window.buildOne = function (key) {
+  const stage = document.getElementById('stage');
+  stage.innerHTML = '';
+  const spec = window.Eng.PAGES[key];
+  if (!spec) throw new Error('no such page ' + key);
+  const res = spec();
+  const div = document.createElement('div');
+  div.className = 'pg'; div.id = 'pg-' + key;
+  if (res.svg) { div.style.width = res.w + 'px'; div.style.height = res.h + 'px'; div.appendChild(res.svg); }
+  else { div.style.width = res.w + 'px'; div.style.height = res.h + 'px'; div.appendChild(res.el); }
+  stage.appendChild(div);
+  return { w: res.w, h: res.h, warns: res.warns || [], tasks: (res.tasks || []).map(t => ({ id: t.id, no: t.no, type: t.type, text: t.text, lane: t.lane })) };
+};
+</script>
+</body></html>
