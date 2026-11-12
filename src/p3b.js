@@ -12,16 +12,16 @@ E.PAGES.p3b = function () {
   /* ---------- 3C · faltantes ---------- */
   const D = p.band({
     y: p.headBottom + 26, tag: '3C', title: 'Faltantes: el Backorder se resuelve y vuelve al picking',
-    desc: 'El faltante puede nacer al armar el pedido (3A) o al recibirlo en la sucursal (3B). e-Karú lo clasifica, lo programa y avisa a la Central cuando ya está disponible.',
+    desc: 'El faltante puede nacer al armar el pedido (3A) o al recibirlo en el salón o la sucursal (3B). e-Karú lo clasifica, lo programa y avisa a la Central cuando ya está disponible.',
     lanes: [E.lane('prod', 190, [95]), E.lane('ek', 345, [100, 245]), E.lane('dist', 170, [85]), E.lane('cen', 190, [95])]
   });
   D.ev('Ld', 'ek', 1, 'link', 'D · Faltante o Backorder pendiente (viene de 3A o 3B)', { dy: 72.5, lp: 'b', lw: 150 });
   D.gw('Gs', 'ek', 2, 'or', '¿Qué falta?', { dy: 72.5, lp: 'r', lw: 110 });
-  D.t('Eprog', 'ek', 3, 'Programa el faltante en la cola de producción y avisa a Producción', 'auto');
-  D.t('Epo', 'ek', 3, 'Genera la orden de compra al distribuidor (isopor, conos, ingredientes, etc.) y se la envía', 'auto', { row: 1, w: 200 });
+  D.t('Eprog', 'ek', 3, 'Suma el faltante al plan como urgente (0B) y avisa a Producción', 'auto');
+  D.t('Epo', 'ek', 3, 'Genera la orden de compra al distribuidor (isopor, conos, vasos) y se la envía', 'auto', { row: 1, w: 200 });
   D.sub('Pfab', 'prod', 4, 'Fabricar y envasar el faltante, baldes o cajas (Proceso 2)', { type: 'manual', h: 128 });
   D.t('Dconf', 'dist', 4, 'Confirmar el pedido y entregarlo a Glacé', 'ext', { no: false });
-  D.sub('Crec', 'cen', 5, 'Recibir y escanear la entrega del distribuidor (Proceso 1)', { type: 'scan', h: 128, w: 190 });
+  D.sub('Crec', 'cen', 5, 'Recibir y escanear la entrega del distribuidor (como en 1A)', { type: 'scan', h: 128, w: 190 });
   D.gw('Gj', 'ek', 6, 'or', '', { dy: 72.5 });
   D.t('Tcol', 'cen', 7, 'Escanear los baldes e insumos del Backorder y asignarlos al pedido pendiente', 'scan', { w: 196 });
   D.t('Eready', 'ek', 8, 'Confirma a la Central de Pedidos que el Backorder está disponible («pedido casi listo»)', 'auto', { dy: 72.5, w: 200 });
@@ -52,7 +52,7 @@ E.PAGES.p3b = function () {
   S('rect', { x: M, y: by, width: W - 2 * M, height: bh, rx: 4, fill: '#F6F9F7', stroke: C.pool, 'stroke-width': 1.8 }, g);
 
   // banner
-  const bl = 'Mismo código EAN-13 de la balanza en todos los pasos';
+  const bl = 'Mismo código de la balanza en todos los pasos';
   const bw = tw(bl, 14.5, 700) + 70, bx = W / 2 - bw / 2, byy = by + 38;
   S('path', { d: `M${M + 30},${byy}H${W - M - 30}`, stroke: C.ek, 'stroke-width': 1.6, 'stroke-dasharray': '3 5' }, g);
   S('rect', { x: bx, y: byy - 16, width: bw, height: 32, rx: 16, fill: '#fff', stroke: C.ek, 'stroke-width': 1.8 }, g);
@@ -60,11 +60,11 @@ E.PAGES.p3b = function () {
   TXT(g, bl, bx + 46, byy + 5, { size: 14.5, weight: 700, fill: C.ekDark, anchor: 'start' });
 
   const steps = [
-    { tag: 'PROCESO 2 · PRODUCCIÓN', title: 'Nace en la balanza', desc: 'La balanza pesa el balde e imprime su código. e-Karú lo lee al escanear y lo registra con lote y vencimiento.', st: 'En stock central, con lote y vencimiento' },
+    { tag: 'PROCESO 2 · PRODUCCIÓN', title: 'Nace en la balanza', desc: 'La balanza pesa el balde e imprime su código. e-Karú lo registra «en control» y lo libera al cerrar la orden (2B).', st: 'Liberado en stock central, con lote' },
     { tag: '3A · PICKING', title: 'Sale por picking', desc: 'La tablet sugiere primero los lotes que vencen antes (FEFO). Cada balde se escanea al recolectarlo.', st: 'Reservado en la Orden de Picking' },
     { tag: '3A · DESPACHO', title: 'Viaja «en tránsito»', desc: 'Al cerrar el picking sale del stock central y queda registrado en la Orden de Despacho.', st: 'En tránsito, fuera del stock central' },
-    { tag: '3B · RECEPCIÓN', title: 'Entra a la sucursal', desc: 'Se escanea al llegar. Sube al stock de la sucursal solo lo que coincide con la Orden de Despacho.', st: 'En el stock de la sucursal' },
-    { tag: 'VENTA EN EL SALÓN', title: 'Se consume al vender', desc: 'Al vender se elige el balde de cada sabor y se descuentan los gramos usados (p. ej., 60 g por bocha).', st: 'Consumido por gramos en cada venta' }
+    { tag: '3B · RECEPCIÓN', title: 'Entra al salón o la sucursal', desc: 'Se escanea al llegar. Sube al stock del local solo lo que coincide con la Orden de Despacho.', st: 'En el stock del local' },
+    { tag: '3H · VENTA EN EL SALÓN', title: 'Se consume al vender', desc: 'Cada venta descuenta los gramos del balde de cada sabor (60 g por bocha) y suma el sello del Club. Vacío, se escanea como terminado.', st: 'Consumido por gramos; terminado al vaciarse' }
   ];
   const gap = 58, padX = 30, n = steps.length, sw = (W - 2 * M - 2 * padX - (n - 1) * gap) / n, sy = by + 78, sh = 196;
   steps.forEach((s, i) => {

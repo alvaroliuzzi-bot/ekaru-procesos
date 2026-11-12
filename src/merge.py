@@ -4,21 +4,25 @@ from pypdf.generic import NameObject, TextStringObject, BooleanObject, Dictionar
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'out')
-ORDER = ['ov', 'resp', 'codes', 'p1a', 'p1b', 'p2a', 'p2b', 'p2c', 'p3a', 'p3b', 'p3c', 'p3d', 'scope']
+ORDER = ['ov', 'resp', 'codes', 'p0', 'p1a', 'p1b', 'p2a', 'p2b', 'p2c', 'p3a', 'p3b', 'p3c', 'p3d', 'p3h', 'canales', 'ops', 'scope']
 TITLES = [
-    '1 · Vista general',
+    '1 · Vista general: doce decisiones, procesos y roles',
     '2 · Respuesta a e-Karú: cuatro puntos y plan por etapas',
     '3 · Códigos de barras: prefijos, lectura, balde único y cambio',
-    '4 · Proceso 1 · Recepción de materia prima: 1A recepción física · 1R rechazo y reclamo',
-    '5 · Proceso 1 · 1B Factura por CDC → precios y costos',
-    '6 · Proceso 2 · Producción y envase: 2A orden y elaboración · 2B baldes y balanza',
-    '7 · Proceso 2 · 2C productos terminados · 2D Promo Pack 12 palitos',
-    '8 · Proceso 2 · 2E bases, sabores y categorías',
-    '9 · Proceso 3 · Pedidos y despacho: 3A pedido y despacho · 3B recepción en sucursal',
-    '10 · Proceso 3 · 3C faltantes y Backorder · 3D vida de un balde',
-    '11 · Proceso 3 · 3E venta a clientes con factura',
-    '12 · Proceso 3 · 3F Nota de Remisión · 3G consignación',
-    '13 · Qué debe hacer e-Karú · requisitos, puntos a definir y material de ejemplo',
+    '4 · Proceso 0 · Planificación (MRP): 0A de la venta al plan · 0B del plan a las órdenes',
+    '5 · Proceso 1 · Recepción de materia prima: 1A recepción física · 1R rechazo y reclamo',
+    '6 · Proceso 1 · 1B factura por CDC → tres vías, precios y costos',
+    '7 · Proceso 2 · Producción y envase: 2A orden y elaboración · 2B baldes y balanza',
+    '8 · Proceso 2 · 2C productos terminados · 2D Promo Pack 12 palitos',
+    '9 · Proceso 2 · 2E bases, sabores y categorías',
+    '10 · Proceso 3 · Pedidos y despacho: 3A pedido y despacho · 3B recepción en el local',
+    '11 · Proceso 3 · 3C faltantes y Backorder · 3D vida de un balde',
+    '12 · Proceso 3 · 3E venta a clientes con factura',
+    '13 · Proceso 3 · 3F Nota de Remisión · 3G consignación',
+    '14 · Salones: 3H venta con e-Karú Ventas y Club · 3I balde terminado',
+    '15 · Canales: mayoristas, minoristas y franquicias (caso aparte)',
+    '16 · Operación y proyecto: datos de partida, qué pasa si, maestros, costos y gobierno',
+    '17 · Qué debe hacer e-Karú · módulos (MVP), puntos a definir y material de ejemplo',
 ]
 res = json.load(open(os.path.join(OUT, 'results.json'), encoding='utf-8'))
 w = PdfWriter()
@@ -54,17 +58,17 @@ for goto, (x0, y0, x1, y1) in sorted(groups.items()):
         pg0[NameObject('/Annots')] = ArrayObject()
     pg0['/Annots'].append(annot_ref)
 w.add_metadata({
-    '/Title': 'Glacé × e-Karú · Procesos ideales (TO-BE)',
+    '/Title': 'Glacé × e-Karú · Informe final: de la fábrica al salón (TO-BE)',
     '/Author': 'Glacé S.A.',
-    '/Subject': 'Procesos ideales con e-Karú como único sistema y solo códigos de barras: recepción de materia prima, producción y envase, recepción de pedidos y despacho',
-    '/Keywords': 'Glacé, e-Karú, código de barras, balanza, factura, Nota de Remisión, SIFEN, BPMN',
+    '/Subject': 'Proceso ideal con e-Karú como único sistema: planificación MRP, recepción de materia prima, producción y envase, pedidos y despacho, salones con e-Karú Ventas y Club, y canales',
+    '/Keywords': 'Glacé, e-Karú, MRP, código de barras, balanza, factura, Nota de Remisión, SIFEN, e-Karú Club, BPMN',
     '/Creator': 'Claude',
 })
 root = w._root_object
 root[NameObject('/Lang')] = TextStringObject('es-PY')
 root[NameObject('/ViewerPreferences')] = DictionaryObject({NameObject('/DisplayDocTitle'): BooleanObject(True)})
 w.page_mode = '/UseOutlines'
-dst = os.path.join(OUT, 'Glace_eKaru_Procesos_ideales.pdf')
+dst = os.path.join(OUT, 'Glace_eKaru_Informe_final.pdf')
 with open(dst, 'wb') as f:
     w.write(f)
 print('written', dst, os.path.getsize(dst) // 1024, 'KB')

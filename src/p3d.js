@@ -12,19 +12,19 @@ E.PAGES.p3d = function () {
       desc: 'Para los destinos que la requieren, e-Karú arma la remisión con los mismos ítems escaneados en el despacho, la envía a SIFEN y el camión sale con el KuDE impreso.',
       lanes: [E.lane('cen', 170, [85]), E.lane('ek', 250, [90, 200]), E.lane('sifen', 150, [75]), E.lane('des', 170, [85])]
     });
-    F.ev('Lin', 'cen', 1, 'link', 'F · Viene del despacho: 3A (sucursal) o 3E (cliente)', { lp: 't', lw: 170 });
+    F.ev('Lin', 'cen', 1, 'link', 'F · Viene del despacho cuando el destino requiere remisión: 3A (local) o 3E (cliente)', { lp: 't', lw: 300 });
     F.gw('Gr', 'ek', 2, 'xor', '¿El destino requiere Nota de Remisión?', { lw: 150 });
     F.t('Enre', 'ek', 3, 'Arma la Nota de Remisión con lo escaneado: destino, motivo, ítems con código de barras y cantidad, sin precios', 'auto', { w: 200 });
-    F.t('Tveh', 'cen', 4, 'Cargar el vehículo, el conductor y la fecha y hora de inicio del traslado', 'user');
+    F.t('Tveh', 'cen', 4, 'Registrar en la tablet el vehículo, el conductor y la fecha y hora de inicio del traslado', 'user');
     F.t('Esend', 'ek', 5, 'Firma y envía la Nota de Remisión a SIFEN antes de que salga el camión', 'auto');
     F.t('Sapr', 'sifen', 6, 'Valida y aprueba el documento; le asigna el CDC y el QR', 'ext', { no: false });
     F.t('Eapp', 'ek', 7, 'Recibe la aprobación y genera el KuDE con su código QR', 'auto');
     F.t('Tprint', 'cen', 8, 'Imprimir el KuDE y subirlo al camión con la mercadería', 'print');
     F.t('Tdis', 'cen', 9, 'Despachar el camión al destino', 'manual');
-    F.t('Rrec', 'des', 9, 'Recibir el camión y escanear lo que llega; e-Karú lo compara con la remisión', 'scan');
-    F.ev('Lb', 'des', 10, 'link', 'C · Sigue en 3B: recepción en la sucursal', { thrw: true, lp: 'b', lw: 150 });
-    F.ev('End0', 'ek', 2, 'end', 'Sin remisión: el camión sale con la Orden de Despacho o la factura', { row: 1, lp: 'r', lw: 150 });
-    F.note('N1', 'cen', 2, `Qué sucursales y clientes la requieren, y con qué motivo, se define con el contador (punto ${T.opNo('Nota de Remisión: qué destinos la requieren')}).`, { w: 250, dx: 100 });
+    F.t('Rrec', 'des', 9, 'Recibir el camión con el KuDE de la remisión', 'scan');
+    F.ev('Lb', 'des', 10, 'link', 'Local: sigue en 3B · Cliente: entrega (3.28)', { thrw: true, lp: 'b', lw: 150 });
+    F.ev('End0', 'ek', 2, 'end', 'Sin remisión: el despacho sigue (3A → 3B, o 3E → entrega 3.28)', { row: 1, lp: 'r', lw: 150 });
+    F.note('N1', 'cen', 2, `Qué locales y clientes la requieren, y con qué motivo, se define con el contador (punto ${T.opNo('Nota de Remisión: qué destinos la requieren')}).`, { w: 250, dx: 100 });
     F.note('N2', 'des', 3, 'Sin precios ni impuestos: la remisión solo ampara el traslado físico de la mercadería.', { w: 260 });
 
     F.e('Lin', 'Gr', 'b', 'l');
@@ -42,20 +42,20 @@ E.PAGES.p3d = function () {
 
     /* ---------- 3G · consignación ---------- */
     const G = p.band({
-      y: F.bottom + 44, tag: '3G', title: 'Consignación: la sucursal vende y Glacé factura lo vendido',
+      y: F.bottom + 44, tag: '3G', title: 'Consignación: el cliente vende y Glacé factura lo vendido',
       desc: 'La mercadería llega con su Nota de Remisión. Al cierre del período, e-Karú suma lo vendido por código de barras y emite la factura final.',
       lanes: [E.lane('con', 170, [85]), E.lane('ek', 250, [90, 200]), E.lane('ven', 150, [75])]
     });
     G.ev('Lc', 'con', 1, 'link', 'F · Llegó la mercadería con su Nota de Remisión', { lp: 'b', lw: 150 });
     G.t('Sv', 'con', 2, 'Vender al público escaneando el código de barras de cada producto', 'scan');
     G.ev('Ecut', 'ek', 3, 'timer', 'Fin del período de liquidación (ej.: cada mes)', { lp: 'b', lw: 150 });
-    G.t('Esum', 'ek', 4, 'Suma lo vendido en el período por código de barras y lo valoriza con la lista de la sucursal', 'auto', { w: 200 });
-    G.t('Tchk', 'ven', 5, 'Revisar el resumen con la sucursal y confirmarlo', 'user');
+    G.t('Esum', 'ek', 4, 'Suma lo vendido en el período por código de barras y lo valoriza con la lista del cliente', 'auto', { w: 200 });
+    G.t('Tchk', 'ven', 5, 'Revisar el resumen con el cliente y confirmarlo', 'user');
     G.t('Efin', 'ek', 6, 'Emite la factura final de lo vendido, con el código de barras de cada línea', 'auto', { w: 200 });
-    G.gw('Gre', 'ek', 7, 'xor', '¿Queda mercadería sin vender?', { lw: 140 });
+    G.gw('Gre', 'ek', 7, 'xor', '¿Se devuelve mercadería sin vender?', { lw: 140 });
     G.ev('End3', 'ek', 8, 'end', 'Consignación liquidada y facturada', { lp: 'b', lw: 150 });
     G.ev('Lr', 'ek', 7, 'link', 'F · Devolver con Nota de Remisión (3F)', { row: 1, thrw: true, lp: 'r', lw: 170 });
-    G.note('N3', 'con', 5, `Cómo informa la sucursal lo vendido (caja de e-Karú, planilla o reporte) se define con Glacé (punto ${T.opNo('Consignación a sucursales')}).`, { w: 300 });
+    G.note('N3', 'con', 5, `Cómo informa el cliente lo vendido (caja de e-Karú, planilla o reporte) se define con Glacé (punto ${T.opNo('Consignación a clientes')}).`, { w: 300 });
 
     G.e('Lc', 'Sv', 'r', 'l');
     G.e('Sv', 'Ecut', 'r', 't');
@@ -103,7 +103,7 @@ E.PAGES.p3d = function () {
     <div>${mk(5)}</div><div><b>CDC y QR.</b> Los asigna SIFEN al aprobar la remisión.</div></div>`;
 
   const html = T.head('n3', 'Recepción de pedidos y despacho',
-    'Fases F y G · Nota de Remisión Electrónica y consignación. Cómo se resuelve la remisión que requieren algunas sucursales y qué formato tiene, y cómo se factura lo que las sucursales venden en consignación.') +
+    'Fases F y G · Nota de Remisión Electrónica y consignación. Cómo se resuelve la remisión que requieren algunos locales y clientes y qué formato tiene, y cómo se factura lo que los clientes venden en consignación.') +
     '<section><div id="dg"></div></section>' +
     `<section><div class="two" style="grid-template-columns:1fr 1.05fr;gap:40px"><div><div class="st"><span class="pill">FORMATO</span><h2>Nota de Remisión Electrónica: qué datos lleva</h2></div><p class="sd">Documento tipo 7 de SIFEN. Ampara el traslado físico de la mercadería y no lleva precios ni impuestos.</p>${tbl}</div><div><div class="st"><span class="pill">EJEMPLO</span><h2>Cómo se ve el documento</h2></div><p class="sd">Remisión de un despacho a una sucursal, con los ítems escaneados. Datos ficticios.</p>${nre}${leg}</div></div></section>`;
   return T.mount(html, (el) => {

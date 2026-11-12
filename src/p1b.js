@@ -5,7 +5,8 @@ const E = window.Eng;
 E.PAGES.p1b = function () {
   const p = E.mk('p1b', '1', {
     num: '1', title: 'Recepción de materia prima',
-    sub: 'Fase B · Factura → precios y costos. SIFEN no le envía las facturas al comprador: e-Karú las trae por su CDC. El CDC llega por dos caminos: el QR del KuDE que viene con la mercadería y el Excel de Marangatu, que además es el control de que no falte ninguna factura del mes.'
+    sub: 'Fase B · Factura → precios y costos. e-Karú trae cada factura por su CDC (del QR del KuDE o del Excel de Marangatu, que además controla que no falte ninguna) y la compara con la Orden de Compra y la recepción: control de tres vías.'
+
   });
 
   const B = p.band({
@@ -29,16 +30,16 @@ E.PAGES.p1b = function () {
   B.note('Npre', 'ek', 2, 'Requisito: Glacé con facturación electrónica activa y su certificado digital cargado en e-Karú. Mientras tanto, e-Karú ya carga facturas por XML o con una foto.', { row: 1, w: 330 });
   B.t('Titem', 'adm', 5, 'Facturas de papel: cargar los ítems con una foto (lectura automática) o a mano', 'user', { w: 200 });
 
-  B.t('Ematch', 'ek', 5, 'Empareja cada línea con las recepciones pendientes del proveedor (insumo, cantidad, fecha)', 'auto', { w: 200 });
+  B.t('Ematch', 'ek', 5, 'Empareja cada línea con la recepción y la Orden de Compra: insumo, cantidad y precio pactado (tres vías)', 'auto', { w: 214 });
   B.gw('Gok', 'ek', 6, 'xor', '¿Todo coincide?');
   B.t('Eprice', 'ek', 7, 'Asigna precio, IVA y costo a la recepción, actualiza el costo del insumo y la cierra', 'auto');
   B.ev('End1', 'ek', 8, 'end', 'Compra cerrada: stock valorizado, costos y KPIs disponibles', { lp: 'b', lw: 170 });
-  B.t('Ediff', 'ek', 6, 'Marca la diferencia: sin recepción, cantidad distinta o insumo sin equivalencia', 'auto', { row: 1 });
-  B.t('Tres', 'adm', 9, 'Resolver: crear la equivalencia del insumo, ajustar o pedir nota de crédito al proveedor', 'user');
+  B.t('Ediff', 'ek', 6, 'Marca la diferencia: sin recepción, cantidad o precio distinto de la Orden de Compra, o insumo sin equivalencia', 'auto', { row: 1, w: 200 });
+  B.t('Tres', 'adm', 9, 'Resolver: equivalencia o ajuste (vuelve a 1.18) o pedir nota de crédito al proveedor', 'user');
   B.t('Pnc', 'sup', 10, 'Emitir la nota de crédito electrónica', 'extmsg', { no: false });
   B.ev('End2', 'dep', 10, 'end', 'Nota de crédito: e-Karú la trae por su CDC', { lp: 'b', lw: 170 });
 
-  B.card('Kpi', 'adm', 7, { title: 'Con el precio de cada ítem, e-Karú permite', items: ['Costo real de cada producto y de cada balde', 'Evolución de precios y comparación entre proveedores', 'Detectar diferencias, faltantes y notas de crédito pendientes'], w: 500 });
+  B.card('Kpi', 'adm', 7, { title: 'Con el precio de cada ítem, e-Karú permite', items: ['Costo real de cada producto y de cada balde', 'Evolución de precios y comparación entre proveedores', 'Detectar diferencias, faltantes y notas de crédito pendientes', 'Medir el plazo real de cada proveedor (Orden de Compra → recepción) para el MRP'], w: 500 });
 
   B.e('S1', 'Tqr', 'b', 'l');
   B.e('Tqr', 'Ecdc', 'r', 't');
@@ -54,7 +55,7 @@ E.PAGES.p1b = function () {
   B.e('Eprice', 'End1', 'r', 'l');
   B.e('Gok', 'Ediff', 'b', 't', { label: 'No' });
   B.e('Ediff', 'Tres', 'r', 't');
-  B.e('Tres', 'Pnc', 'r', 'l', { k: 'msg' });
+  B.e('Tres', 'Pnc', 'r', 'l', { k: 'msg', label: 'Nota de crédito', lc: '#33453F' });
   B.e('Pnc', 'End2', 'b', 't');
 
   return E.fin(p);

@@ -65,12 +65,12 @@ E.PAGES.p3c = function () {
       lanes: [E.lane('cli', 150, [75]), E.lane('ven', 150, [75]), E.lane('ek', 190, [95]), E.lane('cen', 170, [85], { sub: 'salida de fábrica · tablet y escáner' })]
     });
     A.ev('S', 'cli', 1, 'start', 'El cliente hace su pedido: mayorista, minorista o franquicia', { lp: 'r', lw: 170 });
-    A.t('Tped', 'ven', 2, 'Cargar el pedido del cliente o abrir su factura, y elegir su lista de precios', 'user');
+    A.t('Tped', 'ven', 2, 'Recibir el pedido del cliente (portal o tablet) con su lista; si su crédito está bloqueado, queda retenido', 'user', { w: 196 });
     A.t('Eord', 'ek', 3, 'Crea la orden de venta con los precios de esa lista y la Orden de Picking del pedido', 'auto', { w: 200 });
     A.t('Tscan', 'cen', 4, 'Separar el pedido escaneando el código de barras de cada balde y cada producto', 'scan', { w: 196 });
     A.t('Eline', 'ek', 5, 'Agrega la línea a la factura: producto, código de barras, cantidad y precio de la lista', 'auto', { w: 200 });
     A.t('Eexit', 'ek', 6, 'Registra la salida de la fábrica con ese mismo escaneo y descuenta el stock por lote', 'auto', { w: 200 });
-    A.gw('Gdoc', 'ek', 7, 'xor', '¿Qué documento corresponde?', { lw: 130 });
+    A.gw('Gdoc', 'ek', 7, 'xor', '¿Qué documento lleva? (definido en el pedido)', { lw: 130 });
     A.t('Efac', 'ek', 8, 'Emite la factura electrónica y la envía a SIFEN: cada línea lleva el código de barras', 'auto', { w: 200 });
     A.t('Tdel', 'cen', 9, 'Entregar la mercadería con la factura impresa (KuDE)', 'manual');
     A.ev('End', 'cen', 10, 'end', 'Cliente con su mercadería y su factura con código de barras', { lp: 'b', lw: 190 });
@@ -95,15 +95,15 @@ E.PAGES.p3c = function () {
 
   /* ---------- tabla por tipo de cliente ---------- */
   const rows = [
-    ['Mayorista', 'Cliente que compra por mayor. Hoy figura como depósito con el nombre del cliente (ej.: Bar Florida, San Marzano).', 'Mayorista', 'Factura. Nota de Remisión solo si el cliente la requiere.', 'Sí, en cada línea'],
-    ['Minorista', 'Cliente que compra al por menor, cuando corresponde.', 'Minorista', 'Factura.', 'Sí, en cada línea'],
-    ['Franquicia', 'Local franquiciado.', 'Franquicia', 'Factura. Nota de Remisión si corresponde.', 'Sí, en cada línea'],
-    ['Sucursal de Glacé', 'Traslado entre locales de la empresa, sin venta.', 'Sin precio', 'Orden de Despacho. Nota de Remisión en las sucursales que la requieren (3F).', 'Sí, en los ítems de la remisión'],
-    ['Sucursal en consignación', 'Vende al público por cuenta de Glacé.', 'Lista de la sucursal, al liquidar', 'Nota de Remisión al enviar (3F) y factura final al liquidar (3G).', 'Sí, en ambos documentos']
+    ['Mayorista', 'Cliente que compra por mayor. Hoy figura como depósito con el nombre del cliente (ej.: Bar Florida, San Marzano). Ideal: pide en el portal de pedidos (página 15).', 'Mayorista', 'Factura. Nota de Remisión solo si el cliente la requiere.', 'Sí, en cada línea'],
+    ['Minorista', 'Comercio que revende (despensa, kiosco, supermercado).', 'Minorista', 'Factura; o consignación si se acuerda (3G).', 'Sí, en cada línea'],
+    ['Franquicia', 'Local franquiciado, con su propia caja e-Karú y el Club con la marca Glacé. Caso aparte (página 15).', 'Franquicia', 'Factura. Nota de Remisión si corresponde.', 'Sí, en cada línea'],
+    ['Salón o sucursal de Glacé', 'Traslado entre locales de la empresa, sin venta. El pedido lo sugiere e-Karú (0B); el salón vende con e-Karú Ventas y Club (3H).', 'Sin precio', 'Orden de Despacho. Nota de Remisión en los locales que la requieren (3F).', 'Sí, en los ítems de la remisión'],
+    ['Cliente en consignación', 'Vende al público por cuenta de Glacé.', 'Lista de la sucursal, al liquidar', 'Nota de Remisión al enviar (3F) y factura final al liquidar (3G).', 'Sí, en ambos documentos']
   ];
   const trs = rows.map((r) => `<tr><td class="k" style="width:15%">${r[0]}</td><td style="width:29%">${r[1]}</td><td style="width:13%">${r[2]}</td><td style="width:26%">${r[3]}</td><td>${r[4]}</td></tr>`).join('');
   const tbl = `<table class="tbl"><thead><tr><th>DESTINO</th><th>QUÉ ES</th><th>LISTA DE PRECIOS</th><th>DOCUMENTO AL DESPACHAR</th><th>CÓDIGO DE BARRAS</th></tr></thead><tbody>${trs}</tbody></table>
-    <div class="note" style="margin-top:20px"><b>Propuesta, para validar con el contador:</b> qué destino lleva factura, remisión o ambas depende de si hay venta y de cómo esté constituido cada local (puntos ${T.opNo('Nota de Remisión: qué destinos la requieren')} y ${T.opNo('Consignación a sucursales')} de la última página). El resultado que se busca es siempre el mismo: el documento final muestra el código de barras de cada producto.</div>`;
+    <div class="note" style="margin-top:20px"><b>Propuesta, para validar con el contador:</b> qué destino lleva factura, remisión o ambas depende de si hay venta y de cómo esté constituido cada local (puntos ${T.opNo('Nota de Remisión: qué destinos la requieren')} y ${T.opNo('Consignación a clientes')} de la última página). El resultado que se busca es siempre el mismo: el documento final muestra el código de barras de cada producto.</div>`;
 
   /* ---------- ejemplo de factura ---------- */
   const mk = (n) => `<span class="mk">${n}</span>`;

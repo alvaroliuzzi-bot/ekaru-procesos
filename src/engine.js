@@ -198,14 +198,15 @@ class Page {
     S('rect', { x: M, y: M, width: 70, height: 70, rx: 16, fill: C.ink }, g);
     TXT(g, num, M + 35, M + 51, { size: 40, weight: 700, fill: '#fff' });
     TXT(g, title, M + 94, M + 34, { size: 36, weight: 700, anchor: 'start', fill: C.ink, ls: -0.4 });
+    if (wrap(sub, 1500, 17.5, 400).length > 2) this.warns.push('header sub has more than 2 lines');
     LINES(g, wrap(sub, 1500, 17.5, 400), M + 94, M + 63, { size: 17.5, lh: 23, anchor: 'start', fill: C.muted });
     // right tag
     const rx = this.w - M;
     const pw = 214;
     S('rect', { x: rx - pw, y: M + 2, width: pw, height: 30, rx: 15, fill: C.ekFill }, g);
     TXT(g, tag || 'PROCESO IDEAL · TO-BE', rx - pw / 2, M + 22, { size: 13, weight: 700, fill: C.ekDark, ls: 1.1 });
-    TXT(g, 'Glacé S.A. · update de e-Karú', rx, M + 54, { size: 14, weight: 600, fill: C.ink2, anchor: 'end' });
-    TXT(g, 'Versión 2 · 10/11/2026', rx, M + 73, { size: 13, fill: C.muted, anchor: 'end' });
+    TXT(g, 'Glacé S.A. · informe final para e-Karú', rx, M + 54, { size: 14, weight: 600, fill: C.ink2, anchor: 'end' });
+    TXT(g, 'Versión final · 12/11/2026', rx, M + 73, { size: 13, fill: C.muted, anchor: 'end' });
     S('line', { x1: M, x2: this.w - M, y1: M + 96, y2: M + 96, stroke: C.grid, 'stroke-width': 1.2 }, g);
     this.headBottom = M + 96;
   }
@@ -546,7 +547,7 @@ class Band {
     const col = ed.lc || (/^(Sí|Si)/.test(ed.label) ? C.yes : (/^No/.test(ed.label) ? C.no : C.ink2));
     const w = tw(ed.label, 13.5, 700) + 8;
     let x, y, anchor = 'start';
-    if (ed.lpos) { x = ed.lpos[0]; y = ed.lpos[1]; anchor = ed.lanchor || 'middle'; }
+    if (ed.lpos) { x = this.rs(ed.lpos[0]); y = this.rs(ed.lpos[1]); anchor = ed.lanchor || 'middle'; }
     else if (horiz) { x = s0[0] + dirx * 14 + (dirx < 0 ? -w + 8 : 0); y = s0[1] - 8; anchor = 'start'; x = dirx < 0 ? s0[0] - 14 : s0[0] + 14; anchor = dirx < 0 ? 'end' : 'start'; }
     else { x = s0[0] + 9; y = s0[1] + diry * 18 + (diry < 0 ? -2 : 6); anchor = 'start'; }
     if (ed.ldx) x += ed.ldx; if (ed.ldy) y += ed.ldy;

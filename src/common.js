@@ -15,14 +15,19 @@ const LN = {
   cli: { name: 'Cliente', sub: 'mayorista, minorista o franquicia', kind: 'ext' },
   ven: { name: 'Administración / Ventas', sub: 'pedido y factura del cliente', kind: 'person' },
   sifen: { name: 'SIFEN (DNIT)', sub: 'valida y aprueba los documentos', kind: 'ext' },
-  con: { name: 'Sucursal en consignación', sub: 'vende al público', kind: 'person' },
-  des: { name: 'Sucursal o cliente que recibe', sub: 'destino de la mercadería', kind: 'person' },
+  con: { name: 'Cliente en consignación', sub: 'minorista o franquicia · vende al público', kind: 'person' },
+  des: { name: 'Local o cliente que recibe', sub: 'salón, sucursal o cliente', kind: 'person' },
   plant: { name: 'Operario de Planta', sub: 'tablet y escáner', kind: 'person' },
   bal: { name: 'Balanza', sub: 'Mettler Toledo: su software y su impresora', kind: 'bal' },
-  suc: { name: 'Sucursales de Glacé', sub: 'Mariano, Sacramento, San Lorenzo', kind: 'person' },
+  suc: { name: 'Salones y sucursales', sub: 'locales propios de Glacé · tablet y escáner', kind: 'person' },
+  caja: { name: 'Cajero/a del salón', sub: 'caja e-Karú Ventas y escáner', kind: 'person' },
+  clis: { name: 'Cliente del salón', sub: 'con o sin tarjeta del Club en el celular', kind: 'ext' },
+  encs: { name: 'Encargado/a del salón', sub: 'tablet', kind: 'person' },
   cen: { name: 'Operario del Depósito Central', sub: 'tablet y escáner', kind: 'person' },
   prod: { name: 'Producción', sub: 'planta', kind: 'person' },
-  dist: { name: 'Distribuidores', sub: 'externo · insumos que Glacé no fabrica', kind: 'ext' }
+  dist: { name: 'Distribuidores', sub: 'externo · insumos que Glacé no fabrica', kind: 'ext' },
+  can: { name: 'Canales de venta', sub: 'cajas de salones y franquicias, pedidos de sucursales y clientes', kind: 'person' },
+  plan: { name: 'Planificación', sub: 'encargado de producción y compras', kind: 'person' }
 };
 E.lane = (id, h, rows, over = {}) => Object.assign({ id }, LN[id], { h, rows }, over);
 

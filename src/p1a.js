@@ -5,7 +5,7 @@ const E = window.Eng;
 E.PAGES.p1a = function () {
   const p = E.mk('p1a', '1', {
     num: '1', title: 'Recepción de materia prima',
-    sub: 'Fase A · Recepción física. El camión llega, se controla la calidad y cada ítem entra al stock con su código de barras, sin esperar la factura. La Fase B (factura → precios y costos) sigue en la página siguiente.'
+    sub: 'Fase A · Recepción física. El camión llega con lo que pidió la Orden de Compra del MRP (Proceso 0), se controla la calidad y cada ítem entra al stock con su código de barras, sin esperar la factura. La Fase B (factura → precios y costos) sigue en la página siguiente.'
   });
 
   /* ---------- banda principal ---------- */
@@ -15,18 +15,19 @@ E.PAGES.p1a = function () {
     lanes: [E.lane('prov', 132, [60]), E.lane('dep', 345, [100, 255]), E.lane('ek', 232, [116])]
   });
 
-  A.ev('S1', 'prov', 1, 'start', 'Llega el camión con la mercadería y la factura (electrónica o papel)', { lp: 'r', lw: 150 });
+  A.ev('S1', 'prov', 1, 'start', 'Llega el camión de una Orden de Compra (0B), con la mercadería y la factura', { lp: 'r', lw: 160 });
   A.ev('Ac', 'dep', 1, 'link', 'A · Llega la reposición', { row: 1, lp: 'b', lw: 150 });
   A.t('A1', 'dep', 1, 'Inspección visual y física de los insumos: temperatura, empaque y vencimiento', 'manual');
-  A.gw('G1', 'dep', 2, 'xor', '¿Calidad física OK?');
+  A.gw('G1', 'dep', 2, 'xor', '¿Calidad física OK? (toda la entrega o cada ítem)', { lw: 190 });
   A.ev('Rr', 'dep', 2, 'link', 'Rechazo por calidad (continúa en R)', { row: 1, thrw: true, lp: 'b', lw: 150 });
   A.gw('G2', 'dep', 3, 'xor', '¿El ítem trae código de barras?');
   A.t('Alab', 'dep', 3, 'Imprimir con e-Karú Etiquetas la etiqueta interna del insumo y pegarla en cada bulto', 'print', { row: 1 });
   A.t('Asc', 'dep', 4, 'Escanear el código de barras del ítem (EAN del proveedor o etiqueta interna)', 'scan');
-  A.t('Erec', 'ek', 5, 'Reconoce el insumo por su código. Si es nuevo, pide vincularlo (solo la primera vez)', 'auto');
+  A.t('Erec', 'ek', 5, 'Reconoce el insumo por su código y lo busca en la Orden de Compra abierta. Si es nuevo, pide vincularlo', 'auto', { w: 196 });
   A.t('Aqty', 'dep', 6, 'Indicar cantidad, lote y fecha de vencimiento en la tablet', 'user');
-  A.t('Estock', 'ek', 7, 'Registra la entrada al stock con lote y vencimiento; estado «pendiente de factura»', 'auto');
+  A.t('Estock', 'ek', 7, 'Registra la entrada con lote y vencimiento, la descuenta de la Orden de Compra y la deja «pendiente de factura»', 'auto', { w: 196 });
   A.t('Astore', 'dep', 8, 'Trasladar y almacenar en la cámara de frío o el depósito seco', 'manual');
+  A.note('Noc', 'prov', 6, 'Con el MRP, cada entrega tiene su Orden de Compra: la tablet muestra las entregas esperadas del día y e-Karú marca lo que llega sin orden, de más o de menos.', { w: 420 });
   A.ev('End', 'dep', 9, 'end', 'Insumos en stock, disponibles para producción. Factura pendiente: sigue en 1B', { lp: 'b', lw: 170 });
 
   A.e('S1', 'A1', 'b', 't');
@@ -53,7 +54,7 @@ E.PAGES.p1a = function () {
     lanes: [E.lane('prov', 262, [70, 196]), E.lane('ek', 170, [85]), E.lane('dep', 170, [85])]
   });
   R.ev('Rc', 'dep', 1, 'link', 'R · Rechazo por calidad', { lp: 'b', lw: 140 });
-  R.t('A2', 'dep', 2, 'Devolver el ítem en el camión y marcar «Rechazo por calidad» en la tablet (motivo y foto)', 'user');
+  R.t('A2', 'dep', 2, 'Devolver lo rechazado (ítems o toda la entrega) y marcar «Rechazo por calidad» en la tablet, con motivo y foto', 'user');
   R.t('Ecl', 'ek', 3, 'Crea el reclamo (ítem, cantidad, motivo y foto) y lo envía por correo formal al proveedor', 'auto');
   R.t('Prec', 'prov', 4, 'Recibir el reclamo y responder: reponer o acreditar', 'extmsg', { no: false });
   R.gw('Grep', 'prov', 5, 'xor', '¿Repone la mercadería?');

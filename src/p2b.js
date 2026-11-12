@@ -25,7 +25,7 @@ E.PAGES.p2b = function () {
   C.t('Estock', 'ek', 7, 'Suma al stock del producto por fecha de elaboración, o al stock del grupo', 'auto');
   C.t('Pstore', 'plant', 8, 'Guardar en la cámara de producto terminado', 'manual');
   C.ev('End', 'plant', 9, 'end', 'Productos en stock, etiquetados y listos para despachar (Proceso 3)', { lp: 'b', lw: 190 });
-  C.card('Kc', 'ek', 9, { title: 'Qué producto lleva qué código', items: ['Código 22, uno por producto y fecha: palitos, alfajores, brownies, postres, tartas, Cono Fan y tortas', 'Código PADRE (29), uno por grupo: vasos, conos 2 y 3, milkshakes, smoothies y potes de 1 kg, ½ y ¼'], w: 500, dx: 66, dy: -8 });
+  C.card('Kc', 'ek', 9, { title: 'Qué producto lleva qué código', items: ['Código 22, uno por producto y fecha: palitos, alfajores, brownies, postres, tartas, Cono Fan y tortas', 'Código PADRE (29), uno por grupo: potes de 1 kg, ½ y ¼ que se envasan en la planta. Vasos, conos, milkshakes y smoothies se descuentan en el salón'], w: 500, dx: 66, dy: -8 });
 
   C.e('LCc', 'Ppack', 'r', 'l');
   C.e('Ppack', 'Gtype', 'b', 'l');
@@ -43,14 +43,14 @@ E.PAGES.p2b = function () {
   /* ---------- 2D · Promo Pack ---------- */
   const D = p.band({
     y: C.bottom + 44, tag: '2D', title: 'Excepción: Promo Pack 12 Palitos',
-    desc: 'El pack tiene un código padre con 12 códigos hijos. Se escanean los 12 palitos, e-Karú genera el ID de paquete y lo asocia a los 12 IDs.',
+    desc: 'Se escanean los 12 palitos (producto + fecha de elaboración); e-Karú genera el ID de paquete 23 y lo asocia a esas 12 unidades.',
     lanes: [E.lane('plant', 235, [112]), E.lane('ek', 235, [112])]
   });
   D.ev('S12', 'plant', 1, 'start', 'Se arma un Promo Pack con 12 palitos', { lp: 'b', lw: 150 });
   D.t('Ps12', 'plant', 2, 'Escanear el código de cada palito del pack', 'scan');
-  D.t('Epk', 'ek', 3, 'Genera el ID de paquete y lo asocia a los 12 IDs escaneados', 'auto');
+  D.t('Epk', 'ek', 3, 'Genera el ID de paquete y lo asocia a las 12 unidades escaneadas', 'auto');
   D.t('Ppr12', 'plant', 4, 'Imprimir la etiqueta con el ID de paquete (e-Karú Etiquetas) y pegarla en el pack', 'print');
-  D.t('Est12', 'ek', 5, 'Registra el Promo Pack con sus 12 códigos hijos', 'auto');
+  D.t('Est12', 'ek', 5, 'Registra el Promo Pack con sus 12 palitos', 'auto');
   D.ev('End12', 'ek', 6, 'end', 'Promo Pack listo, identificado con su ID de paquete', { lp: 'b', lw: 170 });
   D.card('Kr', 'ek', 9, { title: 'Reglas de código de barras', items: ['Producto individual: 22 + Nº de producto + fecha de elaboración (EAN-13 válido)', 'Producto por grupo: un código PADRE por grupo; al vender se elige el grupo y la cantidad a consumir (ej.: grupo de 50 vasos, consumo 2)', 'Promo Pack 12 Palitos: ID de paquete 23… asociado a los 12 palitos', 'Balde de helado: código de la balanza (2 + sabor + peso, propuesta: + transacción); e-Karú solo lo lee'], w: 640, dx: -10, dy: 0 });
 
