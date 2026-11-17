@@ -1,24 +1,40 @@
 <div align="center">
 
-# 🍦 Glacé × e-Karú · De la fábrica al salón
+<img src=".github/assets/banner.svg" width="100%" alt="Glacé × e-Karú · De la fábrica al salón">
 
-**Informe final del proceso ideal: un solo e-Karú, solo códigos de barras, planificación MRP y cada canal con su documento**
+![Versión](https://img.shields.io/badge/📌_versión-final_·_12%2F11%2F2026-1D7A6B?style=for-the-badge)
+![PDF](https://img.shields.io/badge/📄_PDF-17_páginas-14231F?style=for-the-badge)
+![BPMN](https://img.shields.io/badge/🔀_diagramas-BPMN-F2A541?style=for-the-badge)
+![MVP](https://img.shields.io/badge/🚀_MVP-Etapas_0–3_%2B_salón_piloto-E0457B?style=for-the-badge)
+![JS](https://img.shields.io/badge/hecho_con-JavaScript_%2B_Playwright-6D5BD0?style=for-the-badge&logo=javascript&logoColor=white)
 
-![Versión](https://img.shields.io/badge/versión-final%20·%2012%2F11%2F2026-1D7A6B)
-![Páginas](https://img.shields.io/badge/PDF-17%20páginas-14231F)
-![Diagramas](https://img.shields.io/badge/diagramas-BPMN-B8801A)
-![MVP](https://img.shields.io/badge/MVP-Etapas%200–3%20%2B%20salón%20piloto-8C2F5F)
-![Hecho con](https://img.shields.io/badge/hecho%20con-JavaScript%20%2B%20Playwright-667085)
-
-### [📄 Abrir el informe final (PDF)](docs/Glace_eKaru_Informe_final.pdf)
+<a href="docs/Glace_eKaru_Informe_final.pdf"><img src="https://img.shields.io/badge/📄_ABRIR_EL_INFORME_FINAL-PDF-1D9A84?style=for-the-badge&labelColor=0F5C50" height="42" alt="Abrir el informe final (PDF)"></a>
 
 <img src="docs/img/todas_las_paginas.jpg" width="100%" alt="Las 17 páginas del informe">
 
 </div>
 
----
+<img src=".github/assets/cards.svg" width="100%" alt="Procesos 0 a 3: planificación, recepción, producción y despacho">
 
-## En una frase por proceso
+### 🔁 El ciclo completo
+
+```mermaid
+flowchart LR
+    P0["0 · Planificación<br/>MRP"]:::teal --> P1["1 · Recepción<br/>materia prima"]:::gold
+    P1 --> P2["2 · Producción<br/>y envase"]:::pink
+    P2 --> P3["3 · Pedidos<br/>y despacho"]:::violet
+    P3 --> S["🛎️ Salones<br/>Ventas + Club"]:::coral
+    P3 --> C["🚚 Canales<br/>mayoristas · franquicias"]:::coral
+    S -- "la venta del día<br/>es el pedido de mañana" --> P0
+    C --> P0
+    classDef teal fill:#1D9A84,stroke:#0F5C50,color:#fff
+    classDef gold fill:#F2A541,stroke:#B8801A,color:#14231F
+    classDef pink fill:#E0457B,stroke:#8C2F5F,color:#fff
+    classDef violet fill:#6D5BD0,stroke:#3F2F9E,color:#fff
+    classDef coral fill:#FF8A5B,stroke:#C2552E,color:#fff
+```
+
+## 🧭 En una frase por proceso
 
 | | Proceso | Qué cambia |
 |:-:|---|---|
@@ -31,33 +47,45 @@
 
 <p align="center"><img src="docs/img/pag01_vision_general.jpg" width="85%" alt="Vista general: doce decisiones y los procesos"></p>
 
-## Planificación (Proceso 0)
+<img src=".github/assets/divider.svg" width="100%">
+
+## 📈 Planificación (Proceso 0)
 
 De cada venta al plan de la semana, y del plan a las órdenes. Parámetros (stock de seguridad, mínimo y máximo por local, merma, capacidad, arranque del pronóstico), estados del stock y calidad, e indicadores.
 
 <p align="center"><img src="docs/img/pag04_planificacion_mrp.jpg" width="85%" alt="Proceso 0: planificación MRP"></p>
 
-## Producción con balde liberado
+<img src=".github/assets/divider.svg" width="100%">
+
+## 🏭 Producción con balde liberado
 
 <p align="center"><img src="docs/img/pag07_produccion.jpg" width="85%" alt="Proceso 2: orden de producción y envase de baldes"></p>
 
-## Salones: e-Karú Ventas + e-Karú Club
+<img src=".github/assets/divider.svg" width="100%">
+
+## 🛎️ Salones: e-Karú Ventas + e-Karú Club
 
 La venta en la caja descuenta el grupo PADRE y los gramos de cada balde, y suma el sello del Club. Cuando un balde se vacía, e-Karú controla su rendimiento; al cierre, la venta del día se convierte en el pedido sugerido de mañana.
 
 <p align="center"><img src="docs/img/pag14_salones_club.jpg" width="85%" alt="Salones: venta con e-Karú Ventas y Club"></p>
 
-## Canales y franquicias
+<img src=".github/assets/divider.svg" width="100%">
+
+## 🚚 Canales y franquicias
 
 <p align="center"><img src="docs/img/pag15_canales.jpg" width="85%" alt="Canales: de la fábrica a cada destino"></p>
 
-## Operación y proyecto
+<img src=".github/assets/divider.svg" width="100%">
+
+## ⚙️ Operación y proyecto
 
 Datos de partida (lo que falta medir está marcado), doce situaciones fuera del caso ideal, un solo maestro de datos, auditoría, inventario rotativo, costos y márgenes, Glacé Compras como puente y el gobierno del proyecto.
 
 <p align="center"><img src="docs/img/pag16_operacion.jpg" width="85%" alt="Operación y proyecto"></p>
 
-## Contenido del PDF
+<img src=".github/assets/divider.svg" width="100%">
+
+## 📑 Contenido del PDF
 
 | Pág. | Contenido |
 |:-:|---|
@@ -73,7 +101,9 @@ Datos de partida (lo que falta medir está marcado), doce situaciones fuera del 
 | 16 | **Operación y proyecto** · datos de partida, qué pasa si, costos y gobierno |
 | 17 | **Qué debe hacer e-Karú** · 15 módulos (MVP o después), puntos a definir y material de ejemplo |
 
-## Códigos de barra en una tabla
+<img src=".github/assets/divider.svg" width="100%">
+
+## 🏷️ Códigos de barra en una tabla
 
 | Prefijo | Uso | Ejemplo |
 |---|---|---|
@@ -85,7 +115,9 @@ Datos de partida (lo que falta medir está marcado), doce situaciones fuera del 
 
 <p align="center"><img src="docs/img/pag09_bases_sabores.jpg" width="70%" alt="Bases y sabores con su código de balanza"></p>
 
-## Cómo se genera
+<img src=".github/assets/divider.svg" width="100%">
+
+## 🧪 Cómo se genera
 
 `src/` tiene un motor propio de diagramas BPMN en JavaScript (`engine.js`), una página por archivo (`p0.js`, `p1a.js` … `p3h.js`, `canales.js`, `ops.js`, `textpages.js`) y los datos (`catalog.js`: catálogo, bases, sabores y códigos de balanza).
 
@@ -97,10 +129,16 @@ python build.py p1a p1b p2a p2b p2c p3a p3b p3c p3d p3h p0 ov resp codes canales
 python merge.py   # une las 17 páginas en out/Glace_eKaru_Informe_final.pdf
 ```
 
-`build.py` avisa si dos elementos de un diagrama se superponen o si un texto no entra (`warns=`); la versión publicada tiene 0 avisos.
+> [!TIP]
+> `build.py` avisa si dos elementos de un diagrama se superponen o si un texto no entra (`warns=`); la versión publicada tiene 0 avisos.
 
+> [!IMPORTANT]
 > Las facturas y remisiones de ejemplo dentro del PDF son ficticias. Los valores marcados «propuesta» o «falta medir» los decide o mide Glacé.
 
----
+<img src=".github/assets/divider.svg" width="100%">
+
+<div align="center">
 
 <sub>Parte de: [ekaru-etiquetas](https://github.com/alvaroliuzzi-bot/ekaru-etiquetas) · [glace-compras](https://github.com/alvaroliuzzi-bot/glace-compras) · [paginas-web](https://github.com/alvaroliuzzi-bot/paginas-web)</sub>
+
+</div>
