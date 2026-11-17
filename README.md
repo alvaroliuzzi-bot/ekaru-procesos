@@ -12,6 +12,9 @@
 
 <a href="#-las-17-páginas-clic-para-ampliar"><img src="docs/img/todas_las_paginas.jpg" width="100%" alt="Las 17 páginas del informe (clic para ver cada una en grande)"></a>
 
+
+<a href="https://claude.ai/artifact/6RK7nyF9HsXZztpKUsCuZy"><img src="https://img.shields.io/badge/🗂️_VER_TODOS_LOS_PROYECTOS-en_un_solo_lugar-6D5BD0?style=for-the-badge&labelColor=E0457B" height="40" alt="Ver todos los proyectos en un solo lugar"></a>
+
 </div>
 
 <img src=".github/assets/cards.svg" width="100%" alt="Procesos 0 a 3: planificación, recepción, producción y despacho">
