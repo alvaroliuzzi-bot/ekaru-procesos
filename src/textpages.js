@@ -38,6 +38,7 @@ const CSS = `
 .tp .proc .pb{padding:14px 26px 24px;display:flex;flex-direction:column;gap:14px;flex:1}
 .tp .proc p{margin:0;font-size:15.5px;line-height:23px;color:#33453F}
 .tp .lbl{font-size:11.5px;font-weight:700;letter-spacing:1.2px;color:#5B6D66;margin:0 0 7px}
+
 .tp .chips{display:flex;flex-wrap:wrap;gap:8px}
 .tp .chip{display:inline-flex;align-items:center;gap:8px;min-height:28px;padding:3px 12px;border-radius:14px;background:#F1F5F3;border:1px solid #C9D4CF;font-size:13.5px;font-weight:600;color:#33453F;white-space:nowrap}
 .tp .chip b{font-weight:700;color:#14231F}
@@ -73,6 +74,21 @@ const CSS = `
 .tp .op p.pp b{font-weight:700}
 .tp .note{background:#FEF8E8;border:1.6px solid #E7CF98;border-radius:12px;padding:16px 20px;font-size:14.8px;line-height:21.5px;color:#5A4210}
 .tp .mono{font-family:${MONO}}
+/* colores vivos (no cambian medidas: solo fondos, bordes y degradados) */
+.tp{background-image:linear-gradient(90deg,#1D9A84 0 14.3%,#3CC4A8 0 28.6%,#F2A541 0 42.9%,#FF8A5B 0 57.2%,#E0457B 0 71.5%,#B0336A 0 85.8%,#6D5BD0 0);background-size:100% 12px;background-repeat:no-repeat}
+.tp .nb{background:linear-gradient(135deg,#1D9A84,#6D5BD0)}
+.tp .tag{background:linear-gradient(90deg,#1D9A84,#3CC4A8);color:#fff}
+.tp .pill{background:linear-gradient(90deg,#14231F,#1D7A6B)}
+.tp section:nth-of-type(4n+2) .pill{background:linear-gradient(90deg,#B8801A,#F2A541)}
+.tp section:nth-of-type(4n+3) .pill{background:linear-gradient(90deg,#8C2F5F,#E0457B)}
+.tp section:nth-of-type(4n+4) .pill{background:linear-gradient(90deg,#3F2F9E,#6D5BD0)}
+.tp .grid3>.card:nth-child(4n+2),.tp .grid4>.card:nth-child(4n+2),.tp .grid5>.card:nth-child(4n+2){border-color:#D48A12}
+.tp .grid3>.card:nth-child(4n+3),.tp .grid4>.card:nth-child(4n+3),.tp .grid5>.card:nth-child(4n+3){border-color:#E0457B}
+.tp .grid3>.card:nth-child(4n+4),.tp .grid4>.card:nth-child(4n+4),.tp .grid5>.card:nth-child(4n+4){border-color:#6D5BD0}
+.tp .flow>.proc:nth-child(1){border-color:#1D9A84} .tp .flow>.proc:nth-child(1) .big{background:#1D9A84}
+.tp .flow>.proc:nth-child(3){border-color:#D48A12} .tp .flow>.proc:nth-child(3) .big{background:#D48A12}
+.tp .flow>.proc:nth-child(5){border-color:#E0457B} .tp .flow>.proc:nth-child(5) .big{background:#E0457B}
+.tp .flow>.proc:nth-child(7){border-color:#6D5BD0} .tp .flow>.proc:nth-child(7) .big{background:#6D5BD0}
 `;
 let cssOn = false;
 const EXTRA = [];

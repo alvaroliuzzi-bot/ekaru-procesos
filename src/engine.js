@@ -195,7 +195,12 @@ class Page {
   }
   header({ num, title, sub, tag }) {
     const g = S('g', {}, this.svg), M = this.M;
-    S('rect', { x: M, y: M, width: 70, height: 70, rx: 16, fill: C.ink }, g);
+    // franja de colores arriba de cada página y número del proceso en su color
+    const RB = ['#1D9A84', '#3CC4A8', '#F2A541', '#FF8A5B', '#E0457B', '#B0336A', '#6D5BD0'];
+    RB.forEach((c, i) => S('rect', { x: i * this.w / RB.length, y: 0, width: this.w / RB.length + 1, height: 12, fill: c }, g));
+    const PC = { '0': '#1D9A84', '1': '#D48A12', '2': '#E0457B', '3': '#6D5BD0' };
+    const numCol = PC[String(num).charAt(0)] || C.ink;
+    S('rect', { x: M, y: M, width: 70, height: 70, rx: 16, fill: numCol }, g);
     TXT(g, num, M + 35, M + 51, { size: 40, weight: 700, fill: '#fff' });
     TXT(g, title, M + 94, M + 34, { size: 36, weight: 700, anchor: 'start', fill: C.ink, ls: -0.4 });
     if (wrap(sub, 1500, 17.5, 400).length > 2) this.warns.push('header sub has more than 2 lines');
@@ -203,11 +208,11 @@ class Page {
     // right tag
     const rx = this.w - M;
     const pw = 214;
-    S('rect', { x: rx - pw, y: M + 2, width: pw, height: 30, rx: 15, fill: C.ekFill }, g);
-    TXT(g, tag || 'PROCESO IDEAL · TO-BE', rx - pw / 2, M + 22, { size: 13, weight: 700, fill: C.ekDark, ls: 1.1 });
+    S('rect', { x: rx - pw, y: M + 2, width: pw, height: 30, rx: 15, fill: numCol }, g);
+    TXT(g, tag || 'PROCESO IDEAL · TO-BE', rx - pw / 2, M + 22, { size: 13, weight: 700, fill: '#fff', ls: 1.1 });
     TXT(g, 'Glacé S.A. · informe final para e-Karú', rx, M + 54, { size: 14, weight: 600, fill: C.ink2, anchor: 'end' });
     TXT(g, 'Versión final · 12/11/2026', rx, M + 73, { size: 13, fill: C.muted, anchor: 'end' });
-    S('line', { x1: M, x2: this.w - M, y1: M + 96, y2: M + 96, stroke: C.grid, 'stroke-width': 1.2 }, g);
+    S('line', { x1: M, x2: this.w - M, y1: M + 96, y2: M + 96, stroke: numCol, 'stroke-width': 2.4, 'stroke-opacity': 0.55 }, g);
     this.headBottom = M + 96;
   }
   band(o) { const b = new Band(this, o); this.bands.push(b); return b; }
