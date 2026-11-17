@@ -10,7 +10,7 @@
 
 <a href="docs/Glace_eKaru_Informe_final.pdf"><img src="https://img.shields.io/badge/📄_ABRIR_EL_INFORME_FINAL-PDF-1D9A84?style=for-the-badge&labelColor=0F5C50" height="42" alt="Abrir el informe final (PDF)"></a>
 
-<img src="docs/img/todas_las_paginas.jpg" width="100%" alt="Las 17 páginas del informe">
+<a href="#-las-17-páginas-clic-para-ampliar"><img src="docs/img/todas_las_paginas.jpg" width="100%" alt="Las 17 páginas del informe (clic para ver cada una en grande)"></a>
 
 </div>
 
@@ -33,6 +33,21 @@ flowchart LR
     classDef violet fill:#6D5BD0,stroke:#3F2F9E,color:#fff
     classDef coral fill:#FF8A5B,stroke:#C2552E,color:#fff
 ```
+
+### 🔎 Las 17 páginas (clic para ampliar)
+
+Cada miniatura abre la página en tamaño real (2600 px de ancho): en GitHub se puede acercar con un clic y moverse por las tablas y los diagramas.
+
+> [!TIP]
+> **Visor con zoom:** [Glacé × e-Karú · Visor del informe](https://claude.ai/artifact/WfckNi11dfU8bmnRuTp2d5): zoom con pellizco o Ctrl + rueda, índice de las 17 páginas con salto a cada sección (2A, 2B, PARÁMETROS, CALIDAD…), búsqueda y vista de todas las páginas. Es privado: se comparte desde claude.ai.
+
+<table>
+<tr><td align="center" width="25%"><a href="docs/paginas/01_ov.jpg"><img src="docs/paginas/mini/01_ov.jpg" width="100%" alt="1 · Vista general: doce decisiones, procesos y roles"></a><br><sub><b>1</b> · Vista general</sub></td><td align="center" width="25%"><a href="docs/paginas/02_resp.jpg"><img src="docs/paginas/mini/02_resp.jpg" width="100%" alt="2 · Respuesta a e-Karú: cuatro puntos y plan por etapas"></a><br><sub><b>2</b> · Respuesta a e-Karú</sub></td><td align="center" width="25%"><a href="docs/paginas/03_codes.jpg"><img src="docs/paginas/mini/03_codes.jpg" width="100%" alt="3 · Códigos de barras: prefijos, lectura, balde único y cambio"></a><br><sub><b>3</b> · Códigos de barras</sub></td><td align="center" width="25%"><a href="docs/paginas/04_p0.jpg"><img src="docs/paginas/mini/04_p0.jpg" width="100%" alt="4 · Proceso 0 · Planificación (MRP): 0A de la venta al plan · 0B del plan a las órdenes"></a><br><sub><b>4</b> · Proceso 0 · Planificación (MRP)</sub></td></tr>
+<tr><td align="center" width="25%"><a href="docs/paginas/05_p1a.jpg"><img src="docs/paginas/mini/05_p1a.jpg" width="100%" alt="5 · Proceso 1 · Recepción de materia prima: 1A recepción física · 1R rechazo y reclamo"></a><br><sub><b>5</b> · Proceso 1 · Recepción de materia prima</sub></td><td align="center" width="25%"><a href="docs/paginas/06_p1b.jpg"><img src="docs/paginas/mini/06_p1b.jpg" width="100%" alt="6 · Proceso 1 · 1B factura por CDC → tres vías, precios y costos"></a><br><sub><b>6</b> · Proceso 1 · 1B factura por CDC → tres vías, precios y costos</sub></td><td align="center" width="25%"><a href="docs/paginas/07_p2a.jpg"><img src="docs/paginas/mini/07_p2a.jpg" width="100%" alt="7 · Proceso 2 · Producción y envase: 2A orden y elaboración · 2B baldes y balanza"></a><br><sub><b>7</b> · Proceso 2 · Producción y envase</sub></td><td align="center" width="25%"><a href="docs/paginas/08_p2b.jpg"><img src="docs/paginas/mini/08_p2b.jpg" width="100%" alt="8 · Proceso 2 · 2C productos terminados · 2D Promo Pack 12 palitos"></a><br><sub><b>8</b> · Proceso 2 · 2C productos terminados · 2D Promo Pack 12 palitos</sub></td></tr>
+<tr><td align="center" width="25%"><a href="docs/paginas/09_p2c.jpg"><img src="docs/paginas/mini/09_p2c.jpg" width="100%" alt="9 · Proceso 2 · 2E bases, sabores y categorías"></a><br><sub><b>9</b> · Proceso 2 · 2E bases, sabores y categorías</sub></td><td align="center" width="25%"><a href="docs/paginas/10_p3a.jpg"><img src="docs/paginas/mini/10_p3a.jpg" width="100%" alt="10 · Proceso 3 · Pedidos y despacho: 3A pedido y despacho · 3B recepción en el local"></a><br><sub><b>10</b> · Proceso 3 · Pedidos y despacho</sub></td><td align="center" width="25%"><a href="docs/paginas/11_p3b.jpg"><img src="docs/paginas/mini/11_p3b.jpg" width="100%" alt="11 · Proceso 3 · 3C faltantes y Backorder · 3D vida de un balde"></a><br><sub><b>11</b> · Proceso 3 · 3C faltantes y Backorder · 3D vida de un balde</sub></td><td align="center" width="25%"><a href="docs/paginas/12_p3c.jpg"><img src="docs/paginas/mini/12_p3c.jpg" width="100%" alt="12 · Proceso 3 · 3E venta a clientes con factura"></a><br><sub><b>12</b> · Proceso 3 · 3E venta a clientes con factura</sub></td></tr>
+<tr><td align="center" width="25%"><a href="docs/paginas/13_p3d.jpg"><img src="docs/paginas/mini/13_p3d.jpg" width="100%" alt="13 · Proceso 3 · 3F Nota de Remisión · 3G consignación"></a><br><sub><b>13</b> · Proceso 3 · 3F Nota de Remisión · 3G consignación</sub></td><td align="center" width="25%"><a href="docs/paginas/14_p3h.jpg"><img src="docs/paginas/mini/14_p3h.jpg" width="100%" alt="14 · Salones: 3H venta con e-Karú Ventas y Club · 3I balde terminado"></a><br><sub><b>14</b> · Salones</sub></td><td align="center" width="25%"><a href="docs/paginas/15_canales.jpg"><img src="docs/paginas/mini/15_canales.jpg" width="100%" alt="15 · Canales: mayoristas, minoristas y franquicias (caso aparte)"></a><br><sub><b>15</b> · Canales</sub></td><td align="center" width="25%"><a href="docs/paginas/16_ops.jpg"><img src="docs/paginas/mini/16_ops.jpg" width="100%" alt="16 · Operación y proyecto: datos de partida, qué pasa si, maestros, costos y gobierno"></a><br><sub><b>16</b> · Operación y proyecto</sub></td></tr>
+<tr><td align="center" width="25%"><a href="docs/paginas/17_scope.jpg"><img src="docs/paginas/mini/17_scope.jpg" width="100%" alt="17 · Qué debe hacer e-Karú · módulos (MVP), puntos a definir y material de ejemplo"></a><br><sub><b>17</b> · Qué debe hacer e-Karú · módulos (MVP), puntos a definir y material de ejemplo</sub></td></tr>
+</table>
 
 ## 🧭 En una frase por proceso
 
